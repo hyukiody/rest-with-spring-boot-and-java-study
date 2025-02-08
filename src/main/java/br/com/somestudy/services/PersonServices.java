@@ -7,6 +7,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import br.com.somestudy.controllers.PersonController;
 import br.com.somestudy.data.vo.v1.PersonVO;
@@ -16,6 +17,7 @@ import br.com.somestudy.mapper.MyModelMapper;
 import br.com.somestudy.repositories.PersonRepository;
 import br.com.somestudy.model.Person;
 
+@Service
 public class PersonServices {
 
 	private Logger logger = Logger.getLogger(PersonServices.class.getName());
