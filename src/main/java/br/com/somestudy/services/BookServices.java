@@ -23,6 +23,9 @@ import br.com.somestudy.repositories.BookRepository;
 //Logger is a class in java.util.logging package. It is used to log the information in the log file. The Logger object is used to log messages for a specific system or application component. 
 //Apparently, the logger is used to log the messages to the console, file, network, etc.
 
+//since each action operated is a transaction between data objects and response codes, the logger is used to log the transaction status and the state of the action being performed at the end.
+
+//SERVICE CLASS brings within its methods implementation integration with repository, usage of Model Mapper static association return, and logger.
 
 @Service
 public class BookServices {
@@ -32,6 +35,9 @@ public class BookServices {
 	@Autowired
 	BookRepository repository;
 
+	
+	//The ModelMapper class provides a mapping between two objects. It is a part of the ModelMapper module.
+	//
 	public List<BookVO> findAll() {
 		logger.info("Finding all books!");
 		var books = MyModelMapper.parseListObjects(repository.findAll(), BookVO.class);
