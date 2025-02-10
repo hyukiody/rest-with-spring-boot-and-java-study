@@ -19,6 +19,11 @@ import br.com.somestudy.mapper.ObjectMapper.BookMapper;
 import br.com.somestudy.model.Book;
 import br.com.somestudy.repositories.BookRepository;
 
+
+//Logger is a class in java.util.logging package. It is used to log the information in the log file. The Logger object is used to log messages for a specific system or application component. 
+//Apparently, the logger is used to log the messages to the console, file, network, etc.
+
+
 @Service
 public class BookServices {
 
