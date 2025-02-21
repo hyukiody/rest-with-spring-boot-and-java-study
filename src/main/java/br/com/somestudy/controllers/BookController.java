@@ -3,6 +3,12 @@ package br.com.somestudy.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.somestudy.data.vo.v1.BookVO;
@@ -22,7 +29,16 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
+/*
+ * Controller classes are the classes where the communication methods between the internal java 
+ * application run and the SQL database; intermediated by standard pre-configured web applications
+ * set by the Spring and Swagger libraries.
+ * 
+ * The configuration of the GET, POST, PUT and DELETE API methods itself builds the
+ * relation of web interface that is being hosted; also the binding with the classes
+ * correspondent methods ensures that the Swagger GUI summons the correct class methods,
+ * while triggering the database HTML query communications
+ */
 @RestController
 @RequestMapping("/api/book/v1")
 @Tag(name = "Book", description = "Endpoints for Managing Book")
@@ -31,8 +47,11 @@ public class BookController {
 	
 	@Autowired
 	private BookServices service;
-
-	@GetMapping(
+	/*
+	 * Each CRUD operation has it's equivalent Mapping annotation for the binding of the 
+	 * class methods and the application HTML query requisition 
+	 */
+	@GetMapping( //to configure the API requisition to return the database answer types of return
 			produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
 		@Operation(summary = "Finds all Book", description = "Finds all Book",
 			tags = {"Book"},
@@ -43,15 +62,23 @@ public class BookController {
 							mediaType = "application/json",
 							array = @ArraySchema(schema = @Schema(implementation = BookVO.class))
 						)
-					}),
+					}), //specifying each possible response code is important for the various possible responses
+				//of the API
 				@ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
 				@ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
 				@ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
 				@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
 			}
 		)
-		public List<BookVO> findAll() {
-			return service.findAll();
+		public ResponseEntity <PagedModel<EntityModel<BookVO>>>findAll(
+				@RequestParam(value = "page", defaultValue = "0") Integer page,
+				@RequestParam(value = "size", defaultValue = "12") Integer size,
+				@RequestParam(value = "direction", defaultValue = "asc") String direction
+		){
+			var sortDirection = "desc".equalsIgnoreCase(direction) ? Direction.DESC : Direction.ASC;
+			
+			Pageable pageable = PageRequest.of(page, size, Sort.by(sortDirection, "title"));
+			return ResponseEntity.ok(service.findAll(pageable));
 		}
 		
 		@GetMapping(value = "/{id}",
@@ -131,5 +158,3 @@ public class BookController {
 		}
 	
 }
-/*Study notes:
-*/

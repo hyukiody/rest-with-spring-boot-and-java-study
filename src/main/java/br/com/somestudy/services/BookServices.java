@@ -1,21 +1,23 @@
 package br.com.somestudy.services;
 
-import java.util.List;
-import java.util.logging.Logger;
-
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+import java.util.logging.Logger;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.stereotype.Service;
 
 import br.com.somestudy.controllers.BookController;
 import br.com.somestudy.data.vo.v1.BookVO;
 import br.com.somestudy.exceptions.RequiredObjectIsNullException;
 import br.com.somestudy.exceptions.ResourceNotFoundException;
-import br.com.somestudy.mapper.MyModelMapper;
-import br.com.somestudy.mapper.ObjectMapper.BookMapper;
+import br.com.somestudy.mapper.DozerMapper;
 import br.com.somestudy.model.Book;
 import br.com.somestudy.repositories.BookRepository;
 
@@ -26,19 +28,32 @@ public class BookServices {
 
 	@Autowired
 	BookRepository repository;
-
-	public List<BookVO> findAll() {
+	
+	@Autowired
+	PagedResourcesAssembler<BookVO> assembler;
+	
+	public PagedModel <EntityModel<BookVO>> findAll(Pageable pageable){
+		
 		logger.info("Finding all books!");
-		var books = MyModelMapper.parseListObjects(repository.findAll(), BookVO.class);
-		books.stream().forEach(p -> p.add(linkTo(methodOn(BookController.class).findById(p.getKey())).withSelfRel()));
-		return books;
+		
+		var booksPage = repository.findAll(pageable);
+		
+		var booksVOs= booksPage.map(p -> DozerMapper.parseObject(p, BookVO.class));
+		
+		booksVOs.map(p -> p.add(linkTo(methodOn(BookController.class).findById(p.getKey())).withSelfRel()));
+		
+		Link findAllLink = linkTo(methodOn(BookController.class).findAll(pageable.getPageNumber(),pageable.getPageSize(),"asc")).withSelfRel();
+		
+		return assembler.toModel(booksVOs, findAllLink);
 	}
+	
+
 
 	public BookVO findById(Long id) {
 		logger.info("Finding one book!");
 		
 		var entity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
-		var vo = MyModelMapper.parseObject(entity, BookVO.class);
+		var vo = DozerMapper.parseObject(entity, BookVO.class);
 		vo.add(linkTo(methodOn(BookController.class).findById(id)).withSelfRel());
 		return vo;
 	}
@@ -47,8 +62,9 @@ public class BookServices {
 		if(book == null) throw new RequiredObjectIsNullException();
 		
 		logger.info("Creating one book!");
-		var entity = MyModelMapper.parseObject(book, Book.class);
-		var vo = MyModelMapper.parseObject(repository.save(entity), BookVO.class);
+		
+		var entity = DozerMapper.parseObject(book, Book.class);
+		var vo = DozerMapper.parseObject(repository.save(entity), BookVO.class);
 		vo.add(linkTo(methodOn(BookController.class).findById(vo.getKey())).withSelfRel());
 		return vo;
 	}
@@ -64,7 +80,7 @@ public class BookServices {
 		entity.setPrice(book.getPrice());
 		entity.setTitle(book.getTitle());
 		
-		var vo = MyModelMapper.parseObject(repository.save(entity), BookVO.class);
+		var vo = DozerMapper.parseObject(repository.save(entity), BookVO.class);
 		vo.add(linkTo(methodOn(BookController.class).findById(vo.getKey())).withSelfRel());
 		return vo;
 	}
@@ -77,16 +93,8 @@ public class BookServices {
 		repository.delete(entity);
 	}
 
-	public Book createBook(BookVO bookVO) {
-		Book book = BookMapper.mapToEntity(bookVO); // Map BookVO to Book entity
-		// ... save the book entity using your repository
-		return book;
-	}
-
-	public BookVO convertToVO(Book book) {
-		return BookMapper.mapToVO(book); // Map Book Entity to BookVO
-	}
-
+	
 }
 /*
-*/
+ * 
+ */
