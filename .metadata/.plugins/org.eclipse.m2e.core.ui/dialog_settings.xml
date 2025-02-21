@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.m2e.core.pom.overview">
+<<<<<<< HEAD
+=======
+		<list key="ciManagementUrl">
+		</list>
+		<list key="ciManagementSystem">
+		</list>
+		<list key="issueManagementSystem">
+		</list>
+		<list key="issueManagementUrl">
+		</list>
+>>>>>>> f87d1111b0bf24fc81439351eba5feee66fcbc41
 	</section>
 	<section name="org.eclipse.m2e.core.pom.dependencies">
 	</section>

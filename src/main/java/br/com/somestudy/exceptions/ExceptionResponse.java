@@ -3,6 +3,8 @@ package br.com.somestudy.exceptions;
 import java.io.Serializable;
 import java.util.Date;
 
+//exception treatment class, also serializable for response status message code
+
 public class ExceptionResponse implements Serializable {
 
 	private static final long serialVersionUID = 1L;

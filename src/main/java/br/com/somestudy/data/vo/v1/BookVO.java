@@ -9,6 +9,16 @@ import org.springframework.hateoas.RepresentationModel;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+
+//currently using text prediction, the commentary is wild form copilot;
+//baiscally the class is just a common object for the client and the api to communicate with each other;
+//for security purposes, the client and the api should not be able to communicate directly with each other;
+//so the client and the api should communicate through a common object, which is this class here;
+//note that the class also has interfaces for the mock class of the jUnit test integrated API, for the current project;
+
+
+
+
 @JsonPropertyOrder({"id","author","launchDate","price","title"})
 public class BookVO extends RepresentationModel<BookVO> implements Serializable {
 
