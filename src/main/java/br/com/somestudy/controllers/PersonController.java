@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import br.com.somestudy.data.vo.v1.PersonVO;
-import br.com.somestudy.services.PersonServices;
+import br.com.somestudy.data.dto.PersonDTO;
+import br.com.somestudy.services.PersonService;
 import br.com.somestudy.util.MediaType;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -38,17 +38,17 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public class PersonController {
 
 	@Autowired
-	private PersonServices service;
+	private PersonService service;
 
 	@GetMapping(produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
 	@Operation(summary = "Finds all people", description = "Finds all People", tags = { "People" }, responses = {
 			@ApiResponse(description = "Success", responseCode = "200", content = {
-					@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = PersonVO.class))) }),
+					@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = PersonDTO.class))) }),
 			@ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
 			@ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
 			@ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
 			@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content), })
-	public ResponseEntity<PagedModel<EntityModel<PersonVO>>> findAll(
+	public ResponseEntity<PagedModel<EntityModel<PersonDTO>>> findAll(
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "size", defaultValue = "12") Integer size,
 			@RequestParam(value = "direction", defaultValue = "asc") String direction) {
@@ -68,7 +68,7 @@ public class PersonController {
 							content = {
 									@Content(
 											mediaType = "application/json",
-											array=@ArraySchema(schema = @Schema(implementation = PersonVO.class))
+											array=@ArraySchema(schema = @Schema(implementation = PersonDTO.class))
 											)
 							}),
 					@ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -77,7 +77,7 @@ public class PersonController {
 					@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
 		}
 			)
-	public ResponseEntity<PagedModel<EntityModel<PersonVO>>> findPersonByName(
+	public ResponseEntity<PagedModel<EntityModel<PersonDTO>>> findPersonByName(
 			@PathVariable(value = "firstName") String firstName,
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "size", defaultValue = "12") Integer size,
@@ -94,13 +94,13 @@ public class PersonController {
 	@GetMapping(value = "/{id}", produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML,
 			MediaType.APPLICATION_YML })
 	@Operation(summary = "Finds a Person", description = "200", tags = { "People" }, responses = {
-			@ApiResponse(description = "Success", responseCode = "200", content = @Content(schema = @Schema(implementation = PersonVO.class))),
+			@ApiResponse(description = "Success", responseCode = "200", content = @Content(schema = @Schema(implementation = PersonDTO.class))),
 			@ApiResponse(description = "No content", responseCode = "204", content = @Content),
 			@ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
 			@ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
 			@ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
 			@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content), })
-	public PersonVO findById(@PathVariable(value = "id") Long id) {
+	public PersonDTO findById(@PathVariable(value = "id") Long id) {
 		return service.findById(id);
 	}
 
@@ -112,13 +112,13 @@ public class PersonController {
 		tags = {"People" }, 
 		responses = {
 					@ApiResponse(description = "Success", responseCode = "200", 
-							content = @Content(schema = @Schema(implementation = PersonVO.class))
+							content = @Content(schema = @Schema(implementation = PersonDTO.class))
 					),
 					@ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
 					@ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
 					@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content), })
 
-	public PersonVO create(@RequestBody PersonVO person) {
+	public PersonDTO create(@RequestBody PersonDTO person) {
 		return service.create(person);
 	}
 
@@ -128,13 +128,13 @@ public class PersonController {
 	@Operation(summary = "Updates a Person", description = "Updates a Person by passing in a JSON, XML or YML representation of the person!", tags = {
 			"People" }, responses = {
 					@ApiResponse(description = "Updated", responseCode = "200", 
-							content = @Content(schema = @Schema(implementation = PersonVO.class))
+							content = @Content(schema = @Schema(implementation = PersonDTO.class))
 					),
 					@ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
 					@ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
 					@ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
 					@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content), })
-	public PersonVO update(@RequestBody PersonVO person) {
+	public PersonDTO update(@RequestBody PersonDTO person) {
 		return service.update(person);
 	}
 	
@@ -144,7 +144,7 @@ public class PersonController {
 		tags= {"People"},
 		responses = {
 				@ApiResponse(description = "Success", responseCode = "200",
-						content = @Content(schema = @Schema(implementation = PersonVO.class))
+						content = @Content(schema = @Schema(implementation = PersonDTO.class))
 						),
 				@ApiResponse(description = "No Content", responseCode ="204", content = @Content),
 				@ApiResponse(description = "Bad Request", responseCode ="400", content = @Content),
@@ -153,7 +153,7 @@ public class PersonController {
 				@ApiResponse(description = "Internal Error", responseCode ="500", content = @Content),
 		}
 	)
-	public PersonVO disablePerson(@PathVariable(value = "id") Long id) {
+	public PersonDTO disablePerson(@PathVariable(value = "id") Long id) {
 		return service.disablePerson(id);
 	}
 		

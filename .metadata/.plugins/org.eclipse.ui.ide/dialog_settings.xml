@@ -15,7 +15,7 @@
 		<item value="org.eclipse.jgit.ssh.apache:7.1.0.202411261347-r"/>
 		<item value="org.eclipse.jgit:7.1.0.202411261347-r"/>
 		<item value="org.eclipse.jst.common.fproj.enablement.jdt:3.30.0.v202405122323"/>
-		<item value="org.eclipse.justj.openjdk.hotspot.jre.full:21.0.5.v20241023-1957"/>
+		<item value="org.eclipse.justj.openjdk.hotspot.jre.full:21.0.6.v20250130-0529"/>
 		<item value="org.eclipse.m2e.feature:2.7.0.20241126-1642"/>
 		<item value="org.eclipse.m2e.logback.feature:2.7.0.20241001-1350"/>
 		<item value="org.eclipse.m2e.wtp.feature:1.6.1.20231024-1618"/>
@@ -38,12 +38,13 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="/home/nomosa/Documents/spring-files/demo"/>
 			<item value="/home/nomosa/Documents/spring-files/spring-projects/rest-with-spring-boot-and-java-study"/>
 			<item value="D:\Program Files\gitProjects\SpringTools Projects\spring-projects\rest-with-spring-boot-and-java-study"/>
 		</list>
 		<section name="SmartImportWizard.dialogBounds">
-			<item key="DIALOG_X_ORIGIN" value="-178"/>
-			<item key="DIALOG_Y_ORIGIN" value="114"/>
+			<item key="DIALOG_X_ORIGIN" value="225"/>
+			<item key="DIALOG_Y_ORIGIN" value="40"/>
 			<item key="DIALOG_WIDTH" value="872"/>
 			<item key="DIALOG_HEIGHT" value="633"/>
 			<item key="DIALOG_FONT_NAME" value="1|Ubuntu|9.0|0|GTK|1|"/>
@@ -59,6 +60,38 @@
 	</section>
 	<section name="NewWizardAction">
 		<section name="NewWizard.dialogBounds">
+			<item key="DIALOG_X_ORIGIN" value="0"/>
+			<item key="DIALOG_Y_ORIGIN" value="0"/>
+			<item key="DIALOG_WIDTH" value="525"/>
+			<item key="DIALOG_HEIGHT" value="500"/>
+			<item key="DIALOG_FONT_NAME" value="1|Ubuntu|9.0|0|GTK|1|"/>
+		</section>
+	</section>
+	<section name="ExternalProjectImportWizard">
+		<section name="ExternalProjectImportWizard.dialogBounds">
+			<item key="DIALOG_X_ORIGIN" value="225"/>
+			<item key="DIALOG_Y_ORIGIN" value="40"/>
+			<item key="DIALOG_WIDTH" value="525"/>
+			<item key="DIALOG_HEIGHT" value="707"/>
+			<item key="DIALOG_FONT_NAME" value="1|Ubuntu|9.0|0|GTK|1|"/>
+		</section>
+	</section>
+	<section name="org.eclipse.ui.dialogs.FilteredResourcesSelectionDialog">
+		<item key="ShowStatusLine" value="true"/>
+		<item key="History" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#x0A;&lt;History&gt;&#x0A;&lt;historyRootNode/&gt;&#x0A;&lt;/History&gt;"/>
+		<item key="ShowDerived" value="false"/>
+		<item key="FilterByLocation" value="false"/>
+		<item key="WorkingSet" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#x0A;&lt;workingSet workingSetName=&quot;&quot;/&gt;"/>
+		<section name="DialogBoundsSettings">
+			<item key="DIALOG_HEIGHT" value="500"/>
+			<item key="DIALOG_WIDTH" value="600"/>
+			<item key="DIALOG_X_ORIGIN" value="386"/>
+			<item key="DIALOG_Y_ORIGIN" value="41"/>
+			<item key="DIALOG_FONT_NAME" value="1|Ubuntu|9.0|0|GTK|1|"/>
+		</section>
+	</section>
+	<section name="BasicNewProjectResourceWizard">
+		<section name="BasicNewProjectResourceWizard.dialogBounds">
 			<item key="DIALOG_X_ORIGIN" value="0"/>
 			<item key="DIALOG_Y_ORIGIN" value="0"/>
 			<item key="DIALOG_WIDTH" value="525"/>

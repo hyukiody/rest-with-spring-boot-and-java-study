@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dirs>
+    <entry loc="/usr/lib/jvm/java-17-openjdk-amd64" stamp="1738957910019"/>
+    <entry loc="/home/nomosa/Documents/spring-files/sts-4.27.0.RELEASE/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.linux.x86_64_21.0.5.v20241023-1957/jre" stamp="1732811469000"/>
     <entry loc="D:\Program Files\SpringBoot-Client\sts-4.27.0.RELEASE\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.5.v20241023-1957\jre" stamp="1738700998116"/>
+    <entry loc="/usr/lib/jvm/java-11-openjdk-amd64" stamp="1738957915356"/>
     <entry loc="D:\Program Files\SpringBoot-Client\sts-4.27.0.RELEASE\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.5.v20241023-1957" stamp="1738700998597"/>
+    <entry loc="/home/nomosa/Documents/spring-files/sts-4.27.0.RELEASE/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.linux.x86_64_21.0.5.v20241023-1957" stamp="1732811469000"/>
 </dirs>

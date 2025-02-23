@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import br.com.somestudy.data.vo.v1.BookVO;
+import br.com.somestudy.data.dto.BookDTO;
 import br.com.somestudy.model.Book;
 
 public class MockBook {
@@ -13,7 +13,7 @@ public class MockBook {
 		return mockEntity(0);
 	}
 
-	public BookVO mockVO() {
+	public BookDTO mockVO() {
 		return mockVO(0);
 	}
 
@@ -25,8 +25,8 @@ public class MockBook {
 		return books;
 	}
 
-	public List<BookVO> mockVOList() {
-		List<BookVO> books = new ArrayList<>();
+	public List<BookDTO> mockVOList() {
+		List<BookDTO> books = new ArrayList<>();
 		for (int i = 0; i < 14; i++) {
 			books.add(mockVO(i));
 		}
@@ -41,8 +41,8 @@ public class MockBook {
         book.setTitle("Some Title" + number);
         return book;
     }
-    public BookVO mockVO(Integer number) {
-        BookVO book = new BookVO();
+    public BookDTO mockVO(Integer number) {
+        BookDTO book = new BookDTO();
         book.setKey(number.longValue());
         book.setAuthor("Some Author" + number);
         book.setLaunchDate(new Date());
