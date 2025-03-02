@@ -1,6 +1,20 @@
 server:
   port: 8888
+cors:
+  originPatterns: http://localhost:8080, http://localhost:3000,
+file:
+  upload-dir: ${java.io.tmpdir}/UploadDir
+security:
+  jwt:
+    token:
+      secret-key: 53cr37
+      expire-length: 3600000
+email:
+  subject: "Default Subject"
+  message: "Default Message"
 spring:
+  application:
+    name: rest-with-spring-boot-and-java-study
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
@@ -8,8 +22,10 @@ spring:
       ddl-auto: none
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
     show-sql: false
+    open-in-view: false
+mail:
+  host: smtp.gmail.com
 springdoc:
   pathsToMatch: /api/**/v1/**
   swagger-ui:
