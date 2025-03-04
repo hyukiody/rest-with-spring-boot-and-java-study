@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 import java.util.List;
 import java.util.Map;
@@ -26,6 +28,7 @@ import br.com.somestudy.config.TestConfigs;
 import br.com.somestudy.integrationtests.dto.AccountCredentialsDTO;
 import br.com.somestudy.integrationtests.dto.PersonDTO;
 import br.com.somestudy.integrationtests.dto.TokenDTO;
+import br.com.somestudy.integrationtests.dto.wrappers.json.WrapperPersonDTO;
 import br.com.somestudy.integrationtests.testcontainers.AbstractIntegrationTest;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
@@ -245,7 +248,7 @@ class PersonControllerJsonTest extends AbstractIntegrationTest {
 		.body()
 		.asString();	
 		
-		WrapperPersonDTO wrapper = objectWrapper.readValue(content, WrapperPersonDTO.class);
+		WrapperPersonDTO wrapper = objectMapper.readValue(content, WrapperPersonDTO.class);
 		List<PersonDTO> people = wrapper.getEmbedded().getPeople();
 	
 		PersonDTO personOne = people.get(0);
@@ -303,5 +306,15 @@ class PersonControllerJsonTest extends AbstractIntegrationTest {
 				assertThat("HATEOAS/HAL link " + key + "has an invalid HTTP method", ((Map<String, String>) value).get("type"), notNullValue());
 			});	
 		}	
-	
+		
+	}
+	private void mockPerson() {
+        person.setFirstName("Linus");
+        person.setLastName("Torvalds");
+        person.setAddress("Helsinki - Finland");
+        person.setGender("Male");
+        person.setEnabled(true);
+        person.setProfileUrl("https://pub.erudio.com.br/meus-cursos");
+        person.setPhotoUrl("https://pub.erudio.com.br/meus-cursos");
+    }
 }
