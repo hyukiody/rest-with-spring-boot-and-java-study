@@ -15,8 +15,8 @@ import org.springframework.stereotype.Service;
 
 import br.com.somestudy.controllers.BookController;
 import br.com.somestudy.data.dto.BookDTO;
-import br.com.somestudy.exceptions.RequiredObjectIsNullException;
-import br.com.somestudy.exceptions.ResourceNotFoundException;
+import br.com.somestudy.exception.RequiredObjectIsNullException;
+import br.com.somestudy.exception.ResourceNotFoundException;
 import br.com.somestudy.mapper.ObjectMapper;
 import br.com.somestudy.model.Book;
 import br.com.somestudy.repositories.BookRepository;

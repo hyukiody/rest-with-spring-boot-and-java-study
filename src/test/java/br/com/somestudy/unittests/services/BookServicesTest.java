@@ -18,7 +18,7 @@ import org.springframework.hateoas.Link;
 import org.springframework.hateoas.PagedModel;
 
 import br.com.somestudy.data.dto.BookDTO;
-import br.com.somestudy.exceptions.RequiredObjectIsNullException;
+import br.com.somestudy.exception.RequiredObjectIsNullException;
 import br.com.somestudy.model.Book;
 import br.com.somestudy.repositories.BookRepository;
 import br.com.somestudy.services.BookService;

@@ -33,7 +33,7 @@ import org.springframework.hateoas.PagedModel;
 import org.springframework.hateoas.Link;
 
 import br.com.somestudy.data.dto.PersonDTO;
-import br.com.somestudy.exceptions.RequiredObjectIsNullException;
+import br.com.somestudy.exception.RequiredObjectIsNullException;
 import br.com.somestudy.model.Person;
 import br.com.somestudy.repositories.PersonRepository;
 import br.com.somestudy.services.PersonService;
