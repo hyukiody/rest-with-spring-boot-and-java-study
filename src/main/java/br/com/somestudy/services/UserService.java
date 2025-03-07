@@ -11,14 +11,14 @@ import org.springframework.stereotype.Service;
 import br.com.somestudy.repositories.UserRepository;
 
 @Service
-public class UserServices implements UserDetailsService{
+public class UserService implements UserDetailsService{
 	
-	private Logger logger = Logger.getLogger(UserServices.class.getTypeName());
+	private Logger logger = Logger.getLogger(UserService.class.getTypeName());
 
 	@Autowired
 	UserRepository repository;
 	
-	public UserServices(UserRepository repository) {
+	public UserService(UserRepository repository) {
 		this.repository = repository;
 	}
 	

@@ -57,7 +57,7 @@ public class User implements UserDetails, Serializable {
 
 	private List<Permission> permissions;
 
-	private User() {
+	public User() {
 	}
 
 	public List<String> getRoles() {
