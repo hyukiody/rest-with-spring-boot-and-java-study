@@ -1,15 +1,20 @@
 package br.com.somestudy.controllers;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.somestudy.controllers.docs.AuthControllerDocs;
+import br.com.somestudy.data.dto.security.AccountCredentialsDTO;
+import br.com.somestudy.services.AuthService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @Tag(name = "Authentication Endpoint!")
@@ -19,13 +24,15 @@ public class AuthController implements AuthControllerDocs{
 
 	AuthService service;
 	
+	@PostMapping("/signin")
+	@Override
 	public ResponseEntity<?> signin(@RequestBody AccountCredentialsDTO credentials){
 		
-		if(credentiaIsInvalid(credentials)) 
+		if(credentialsIsInvalid(credentials)) 
 			return ResponseEntity
 					.status(HttpStatus.FORBIDDEN)
 					.body("Invalid client request!");
-		var token=service.signin(credentials);
+		var token=service.signIn(credentials);
 		
 		if(token==null) ResponseEntity.status(HttpStatus.FORBIDDEN)
 		.body("Invalid client request!");
@@ -33,6 +40,8 @@ public class AuthController implements AuthControllerDocs{
 		
 	}
 	
+	@PutMapping("/refresh/{username}")
+    @Override
 	public ResponseEntity<?> refreshToken(
 			@PathVariable("username") String username,
 			@RequestHeader("Authorization") String refreshToken){
@@ -59,18 +68,17 @@ public class AuthController implements AuthControllerDocs{
 			}
 			
 			)
-	
 	@Override
 	public AccountCredentialsDTO create(@RequestBody AccountCredentialsDTO credentials) {
-		return service.create(credentails);
+		return service.create(credentials);
 		
 	}
-	public boolean parametersAreInvalide(String username, String refreshToken) {
-		return StringUtils.isBlack(username) || StringUtils.isBlank(refreshToken);
+	public boolean parametersAreInvalid(String username, String refreshToken) {
+		return StringUtils.isBlank(username) || StringUtils.isBlank(refreshToken);
 		
 	}
 	
-	private static boolean credentialsIsInvalid(AccountCredentaislDTO credentials) {
+	private static boolean credentialsIsInvalid(AccountCredentialsDTO credentials) {
 		return credentials ==null ||
 				StringUtils.isBlank(credentials.getPassword()) ||
 				StringUtils.isBlank(credentials.getUsername());

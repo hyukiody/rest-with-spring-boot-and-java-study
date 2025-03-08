@@ -1,7 +1,5 @@
 package br.com.somestudy.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -9,6 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.somestudy.data.dto.BookDTO;
 import br.com.somestudy.services.BookService;
-import br.com.somestudy.util.MediaType;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -61,7 +59,10 @@ public class BookController {
 	 */
 
 	@GetMapping( // endpoint string address, mostly for formatting specification.
-			produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
+			produces = { 
+					MediaType.APPLICATION_JSON_VALUE,
+					MediaType.APPLICATION_XML_VALUE, 
+					MediaType.APPLICATION_YAML_VALUE })
 	@Operation(summary = "Finds all Book", description = "Finds all Book", tags = { "Book" },
 			// basically an operation might have multiple responses, so we can specify them
 			// here.
@@ -115,7 +116,10 @@ public class BookController {
 
 	@GetMapping(value = "/{id}",
 			// media type specification for the response being sent back!
-			produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
+			produces = { 
+					MediaType.APPLICATION_JSON_VALUE, 
+					MediaType.APPLICATION_XML_VALUE, 
+					MediaType.APPLICATION_YAML_VALUE })
 	@Operation(summary = "Finds a Book", description = "Finds a Book", tags = { "Book" }, responses = {
 			@ApiResponse(description = "Success", responseCode = "200", content = @Content(schema = @Schema(implementation = BookDTO.class))),
 			@ApiResponse(description = "No Content", responseCode = "204", content = @Content),
@@ -150,9 +154,15 @@ public class BookController {
 		 */
 	}
 
-	@PostMapping(consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML,
-			MediaType.APPLICATION_YML }, produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML,
-					MediaType.APPLICATION_YML })
+	@PostMapping(
+			consumes = { 
+					MediaType.APPLICATION_JSON_VALUE, 
+					MediaType.APPLICATION_XML_VALUE,
+					MediaType.APPLICATION_YAML_VALUE }, 
+			produces = { 
+					MediaType.APPLICATION_JSON_VALUE, 
+					MediaType.APPLICATION_XML_VALUE,
+					MediaType.APPLICATION_YAML_VALUE })
 	@Operation(summary = "Adds a new Book", description = "Adds a new Book by passing in a JSON, XML or YML representation of the book!", tags = {
 			"Book" }, responses = {
 					@ApiResponse(description = "Success", responseCode = "200", content = @Content(schema = @Schema(implementation = BookDTO.class))),
@@ -163,9 +173,9 @@ public class BookController {
 		return service.create(book);
 	}
 
-	@PutMapping(consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML,
-			MediaType.APPLICATION_YML }, produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML,
-					MediaType.APPLICATION_YML })
+	@PutMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE,
+			MediaType.APPLICATION_YAML_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE,
+					MediaType.APPLICATION_YAML_VALUE })
 	@Operation(summary = "Updates a Book", description = "Updates a Book by passing in a JSON, XML or YML representation of the book!", tags = {
 			"Book" }, responses = {
 					@ApiResponse(description = "Updated", responseCode = "200", content = @Content(schema = @Schema(implementation = BookDTO.class))),

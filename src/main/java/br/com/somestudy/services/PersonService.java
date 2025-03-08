@@ -56,7 +56,6 @@ public class PersonService {
 	FileExporterFactory exporter;
 
 	@Autowired
-
 	public PagedModel<EntityModel<PersonDTO>> findAll(Pageable pageable) {
 
 		logger.info("Finding all people!");
@@ -74,23 +73,36 @@ public class PersonService {
 		return buildPagedModel(pageable, people);
 	}
 	
-	public Resource exportPerson(Long id, String acceptHeader) {
-		
-		logger.info("Exporting data of one Person!");
-		
-		var person = repository.findById(id)
-				.map(entity -> ObjectMapper.parseObject(entity, PersonDTO.class))
-				.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
-		
-		try{
-			PersonExporter exporter = this.exporter.getExporter(acceptHeader);
-			
-			return exporter.exportPerson(person);
-		}catch(Exception e) {
-			throw new RuntimeException("Error during file export!", e);
-		}
-		
-	}
+	 public Resource exportPage(Pageable pageable, String acceptHeader) {
+
+	        logger.info("Exporting a People page!");
+
+	        var people = repository.findAll(pageable)
+	            .map(person -> ObjectMapper.parseObject(person, PersonDTO.class))
+	            .getContent();
+
+	        try {
+	            PersonExporter exporter = this.exporter.getExporter(acceptHeader);
+	            return exporter.exportPeople(people);
+	        } catch (Exception e) {
+	            throw new RuntimeException("Error during file export!", e);
+	        }
+	    }
+
+	    public Resource exportPerson(Long id, String acceptHeader) {
+	        logger.info("Exporting data of one Person!");
+
+	        var person = repository.findById(id)
+	            .map(entity -> ObjectMapper.parseObject(entity, PersonDTO.class))
+	            .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
+
+	        try {
+	            PersonExporter exporter = this.exporter.getExporter(acceptHeader);
+	            return exporter.exportPerson(person);
+	        } catch (Exception e) {
+	            throw new RuntimeException("Error during file export!", e);
+	        }
+	    }
 	
 
 	public PersonDTO findById(Long id) {
@@ -218,7 +230,7 @@ public class PersonService {
 	private void addHateoasLinks(PersonDTO dto) {
 		dto.add(linkTo(methodOn(PersonController.class).findAll(1, 12, "asc")).withRel("FindAll").withType("GET"));
 		
-		dto.add(linkTo(methodOn(PersonController.class).findPersonByName("",  1,  12,"asc")).withRel("findByName").withType("GET"));
+		dto.add(linkTo(methodOn(PersonController.class).findByName("",  1,  12,"asc")).withRel("findByName").withType("GET"));
 		
 		dto.add(linkTo(methodOn(PersonController.class).findById(dto.getId())).withSelfRel().withType("GET"));
 
