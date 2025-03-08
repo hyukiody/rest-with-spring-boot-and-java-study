@@ -5,14 +5,40 @@ import java.util.Objects;
 public class EmailRequestDTO {
 
 	private String to;
-	private String from;
+	private String subject;
 	private String body;
 	
 	public EmailRequestDTO() {}
 
+	
+
+	public String getTo() {
+		return to;
+	}
+
+	public void setTo(String to) {
+		this.to = to;
+	}
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String from) {
+		this.subject = from;
+	}
+
+	public String getBody() {
+		return body;
+	}
+
+	public void setBody(String body) {
+		this.body = body;
+	}
+	
 	@Override
 	public int hashCode() {
-		return Objects.hash(body, from, to);
+		return Objects.hash(body, subject, to);
 	}
 
 	@Override
@@ -24,30 +50,6 @@ public class EmailRequestDTO {
 		if (getClass() != obj.getClass())
 			return false;
 		EmailRequestDTO other = (EmailRequestDTO) obj;
-		return Objects.equals(body, other.body) && Objects.equals(from, other.from) && Objects.equals(to, other.to);
-	}
-
-	public String getTo() {
-		return to;
-	}
-
-	public void setTo(String to) {
-		this.to = to;
-	}
-
-	public String getFrom() {
-		return from;
-	}
-
-	public void setFrom(String from) {
-		this.from = from;
-	}
-
-	public String getBody() {
-		return body;
-	}
-
-	public void setBody(String body) {
-		this.body = body;
+		return Objects.equals(body, other.body) && Objects.equals(subject, other.subject) && Objects.equals(to, other.to);
 	}
 }

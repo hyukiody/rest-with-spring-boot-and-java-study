@@ -8,6 +8,9 @@ import org.springframework.context.ApplicationContext;
 import br.com.somestudy.exception.BadRequestException;
 import br.com.somestudy.file.exporter.MediaTypes;
 import br.com.somestudy.file.exporter.contract.PersonExporter;
+import br.com.somestudy.file.exporter.impl.CsvExporter;
+import br.com.somestudy.file.exporter.impl.PdfExporter;
+import br.com.somestudy.file.exporter.impl.XlsxExporter;
 
 public class FileExporterFactory {
 	

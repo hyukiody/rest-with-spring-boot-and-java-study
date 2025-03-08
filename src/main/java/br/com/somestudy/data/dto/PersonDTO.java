@@ -89,6 +89,14 @@ public class PersonDTO extends RepresentationModel<PersonDTO> implements Seriali
 		return photoUrl;
 	}
 
+	public String getProfileUrl() {
+		return profileUrl;
+	}
+
+	public void setProfileUrl(String profileUrl) {
+		this.profileUrl = profileUrl;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

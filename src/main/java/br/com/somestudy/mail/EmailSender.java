@@ -87,7 +87,8 @@ public class EmailSender implements Serializable {
 			}catch(AddressException e){
 				throw new RuntimeException(e);
 			}
-			return recipientsList;
+			
 		}
+		return recipientsList;
 	}
 }
