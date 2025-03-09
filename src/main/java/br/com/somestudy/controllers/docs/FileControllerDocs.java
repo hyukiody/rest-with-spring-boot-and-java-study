@@ -10,10 +10,11 @@ import br.com.somestudy.data.dto.UploadFileResponseDTO;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 
-@Tag(name= "File Endpoint")
+@Tag(name = "File Endpoint")
 public interface FileControllerDocs {
 
-	UploadFileResponseDTO uploadFile(MultipartFile file);
-	List<UploadFileResponseDTO> uploadMultiplefiles(MultipartFile[] files);
-	ResponseEntity<Resource> downloadFile(String fileName, HttpServletRequest request);
+    UploadFileResponseDTO uploadFile(MultipartFile file);
+    List<UploadFileResponseDTO> uploadMultipleFiles(MultipartFile[] files);
+    ResponseEntity<Resource> downloadFile(String fileName,
+                                          HttpServletRequest request);
 }
