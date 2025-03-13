@@ -40,7 +40,7 @@ public class Person implements Serializable {
 	@Column(nullable = false)
 	private Boolean enabled;
 	
-	@Column(name = "photo_url", length = 255)
+	@Column(name = "profile_url", length = 255)
 	private String profileUrl;
 	
 	@Column(name = "photo_url", length = 255)

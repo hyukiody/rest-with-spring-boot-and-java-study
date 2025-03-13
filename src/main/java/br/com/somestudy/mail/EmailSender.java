@@ -18,6 +18,7 @@ import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 
 @Component
+
 public class EmailSender implements Serializable {
 
 	Logger logger = LoggerFactory.getLogger(EmailSender.class);

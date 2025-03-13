@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -12,7 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import br.com.somestudy.config.EmailConfig;
 import br.com.somestudy.data.dto.request.EmailRequestDTO;
 import br.com.somestudy.mail.EmailSender;
-
+@Service
 public class EmailService {
 	@Autowired
 	private EmailSender emailSender;

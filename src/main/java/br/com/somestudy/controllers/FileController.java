@@ -53,7 +53,7 @@ public class FileController implements FileControllerDocs{
 				.map(file -> uploadFile(file))
 				.collect(Collectors.toList());
 	}
-	@GetMapping("/downloadFile}")
+	@GetMapping("/downloadFile")
 	@Override
 	public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request){
 		Resource resource = service.loadFileAsResource(fileName);

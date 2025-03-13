@@ -1,0 +1,49 @@
+version: "3.8" # Or your desired docker-compose version
+
+services:
+  db:
+    image: mysql:9.1.0
+    restart: always
+    environment:
+      TZ: America/Sao_Paulo
+      MYSQL_ROOT_PASSWORD: admin123
+      MYSQL_USER: docker # or root, depending on your app
+      MYSQL_PASSWORD: admin123
+      MYSQL_DATABASE: rest_with_spring_boot_and_java_study # Corrected database name
+    ports:
+      - "3306:3306" # Standard MySQL port
+    networks:
+      - app-network
+
+  rest-with-spring-boot-and-java-study:
+    build: . # Assuming your Dockerfile is in the root of your project
+    restart: always
+    environment:
+      TZ: America/Sao_Paulo
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/rest_with_spring_boot_and_java_study?useTimezone=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root # Or docker, depending on your app
+      SPRING_DATASOURCE_PASSWORD: admin123
+    ports:
+      - "8080:8080" # Assuming your Spring Boot app runs on port 8080
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+  portainer:
+    image: portainer/portainer-ce:latest
+    restart: always
+    ports:
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    networks:
+      - app-network
+
+volumes:
+  portainer_data:
+
+networks:
+  app-network:
+    driver: bridge

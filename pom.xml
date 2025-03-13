@@ -5,23 +5,25 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.0-M1</version>
+        <version>3.4.1</version>
         <relativePath/> </parent>
     <groupId>br.com.somestudy</groupId>
     <artifactId>rest-with-spring-boot-and-java-study</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>rest-with-spring-boot-and-java-study</name>
    	<properties>
-        <java.version>21</java.version>
-		<dozer.version>7.0.0</dozer.version>
-		<springdoc.version>2.7.0</springdoc.version>
-		<testcontainers.version>1.20.4</testcontainers.version>
-		<apache.poi.version>5.3.0</apache.poi.version>
-		<commons-csv.version>1.12.0</commons-csv.version>
-		<jasperreports.version>7.0.1</jasperreports.version>
-		<zxing.version>3.5.3</zxing.version>
-		<java-jwt.version>4.4.0</java-jwt.version>
-    </properties>
+	    <java.version>21</java.version>
+	    <dozer.version>7.0.0</dozer.version>
+	    <springdoc.version>2.7.0</springdoc.version>
+	    <testcontainers.version>1.20.4</testcontainers.version>
+	    <apache.poi.version>5.3.0</apache.poi.version>
+	    <commons-csv.version>1.12.0</commons-csv.version>
+	    <jasperreports.version>7.0.1</jasperreports.version>
+	    <zxing.version>3.5.3</zxing.version>
+	    <java-jwt.version>4.4.0</java-jwt.version>
+	    <rest-assured.version>5.3.0</rest-assured.version>
+	</properties>
+
         
 
     <dependencies>
@@ -29,10 +31,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-mail</artifactId>
-		</dependency>
+       
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -41,6 +40,10 @@
         	<groupId>org.springframework.boot</groupId>
         	<artifactId>spring-boot-starter-security</artifactId>
         </dependency>
+         <dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-mail</artifactId>
+</dependency>
         <dependency>
         	<groupId>org.springframework.boot</groupId>
         	<artifactId>spring-boot-configuration-processor</artifactId>
@@ -133,7 +136,6 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
@@ -158,6 +160,17 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
+        <dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-simple</artifactId>
+    <version>2.0.7</version> <scope>test</scope>
+</dependency>
+<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-simple</artifactId>
+    <version>2.0.7</version> <scope>test</scope>
+</dependency>
+
     </dependencies>
 
     <build>
@@ -190,26 +203,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <repositories>
-        <repository>
-            <id>spring-milestones</id>
-            <name>Spring Milestones</name>
-            <url>https://repo.spring.io/milestone</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>spring-milestones</id>
-            <name>Spring Milestones</name>
-            <url>https://repo.spring.io/milestone</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
-
 </project>

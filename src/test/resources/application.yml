@@ -10,7 +10,7 @@ security:
       secret-key: 53cr37
       expire-length: 3600000
 email:
-  subject: "Default Subject"
+  subject: "Default Subject"  
   message: "Default Message"
 spring:
   application:
@@ -24,8 +24,17 @@ spring:
       hibernate:
     show-sql: false
     open-in-view: false
-mail:
-  host: smtp.gmail.com
+  mail:
+    host: smtp.gmail.com # Or your mail server host
+    port: 587             # Or your mail server port
+    username: ${MAIL_USERNAME} # Your email address
+    password: ${MAIL_PASSWORD} # Your email password or app password
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 springdoc:
   pathsToMatch: /api/**/v1/**
   swagger-ui:

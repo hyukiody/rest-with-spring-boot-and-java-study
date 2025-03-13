@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
@@ -89,32 +90,36 @@ class PersonControllerJsonTest extends AbstractIntegrationTest {
 	@Test
 	@Order(1)
 	void createTest() throws JsonProcessingException {
-			mockPerson();
-			
-			var content = given(specification)
-					.contentType(MediaType.APPLICATION_JSON_VALUE)
-					.body(person)
-					.when()
-					.post()
-					.then()
-					.statusCode(200)
-					.contentType(MediaType.APPLICATION_JSON_VALUE)
-					.extract()
-					.body()
-					.asString();
-			
-			PersonDTO createdPerson = objectMapper.readValue(content, PersonDTO.class);
-			person = createdPerson;
-			
-			assertNotNull(createdPerson.getId());
-			assertTrue(createdPerson.getId()> 0);
-			
-			assertEquals("Linus", createdPerson.getFirstName());
-			assertEquals("Torvalds", createdPerson.getLastName());
-			assertEquals("Helsinki - Finland", createdPerson.getAddress());
-			assertEquals("Male", createdPerson.getGender());
-			assertTrue(createdPerson.getEnabled());
-		}
+	    mockPerson();
+
+	    String content = given(specification)
+	            .contentType(MediaType.APPLICATION_JSON_VALUE)
+	            .body(person)
+	            .when()
+	            .post()
+	            .then()
+	            .statusCode(200)
+	            .contentType(MediaType.APPLICATION_JSON_VALUE)
+	            .extract()
+	            .body()
+	            .asString();
+
+	    try {
+	        PersonDTO createdPerson = objectMapper.readValue(content, PersonDTO.class);
+	        person = createdPerson;
+
+	        assertNotNull(createdPerson.getId());
+	        assertTrue(createdPerson.getId() > 0);
+
+	        assertEquals("Linus", createdPerson.getFirstName());
+	        assertEquals("Torvalds", createdPerson.getLastName());
+	        assertEquals("Helsinki - Finland", createdPerson.getAddress());
+	        assertEquals("Male", createdPerson.getGender());
+	        assertTrue(createdPerson.getEnabled());
+	    } catch (JsonProcessingException e) {
+	        fail("Failed to parse JSON: " + e.getMessage());
+	    }
+	}
 	@Test
 	@Order(2)
 	void updateTest() throws JsonProcessingException{
@@ -210,7 +215,7 @@ class PersonControllerJsonTest extends AbstractIntegrationTest {
 		.when()
 		.delete("{id}")
 		.then()
-		.statusCode(2004);
+		.statusCode(204);
 	}
 	
 	@Test

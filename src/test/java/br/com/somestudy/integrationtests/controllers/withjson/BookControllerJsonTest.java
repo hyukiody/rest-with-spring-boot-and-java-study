@@ -82,29 +82,32 @@ class BookControllerJsonTest extends AbstractIntegrationTest{
 	
 	@Test
 	@Order(1)
-	void createTest() throws JsonProcessingException{
-		mockBook();
-		
-		var content = given()
-				.contentType(MediaType.APPLICATION_JSON_VALUE)
-				.body(book)
-				.when()
-				.post()
-				.then()
-				.statusCode(200)
-				.contentType(MediaType.APPLICATION_JSON_VALUE)
-				.extract()
-				.body()
-				.asString();
-		
-		BookDTO createdBook = objectMapper.readValue(content, BookDTO.class);
-		book = createdBook;
-		
-		assertNotNull(createdBook.getId());
-		assertNotNull(book.getId());
-		assertEquals("Docker Deep Dive", book.getTitle());
-		assertEquals("Nigel Doulton", book.getAuthor());
-		assertEquals(55.99, book.getPrice());
+	void createTest() throws JsonProcessingException {
+	    book = new BookDTO(); // Ensure test isolation
+	    mockBook();
+
+	    String responseBody = given()
+	            .spec(specification)
+	            .contentType(MediaType.APPLICATION_JSON_VALUE)
+	            .body(book)
+	            .when()
+	            .post()
+	            .then()
+	            .statusCode(200)
+	            .contentType(MediaType.APPLICATION_JSON_VALUE)
+	            .extract()
+	            .body()
+	            .asString();
+
+	    BookDTO createdBook = objectMapper.readValue(responseBody, BookDTO.class);
+	    book = createdBook;
+
+	    assertNotNull(createdBook.getId(), "Created book should have an ID");
+	    assertNotNull(book.getId(), "Book should have an ID");
+	    assertEquals("Docker Deep Dive", book.getTitle(), "Book title should match");
+	    assertEquals("Nigel Poulton", book.getAuthor(), "Book author should match"); // Corrected author name
+	    assertEquals(55.99, book.getPrice(), "Book price should match");
+	
 		
 	}
 	

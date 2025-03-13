@@ -34,3 +34,7 @@ springdoc:
     - /auth/**
   swagger-ui:
     use-root-path: true
+logging:
+  level:
+    org:
+      testcontainers: DEBUG

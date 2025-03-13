@@ -55,7 +55,6 @@ public class PersonService {
 	@Autowired
 	FileExporterFactory exporter;
 
-	@Autowired
 	public PagedModel<EntityModel<PersonDTO>> findAll(Pageable pageable) {
 
 		logger.info("Finding all people!");

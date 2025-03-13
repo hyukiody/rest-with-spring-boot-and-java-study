@@ -1,5 +1,21 @@
 package br.com.somestudy.unittests.services;
 
+import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -14,7 +30,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.Link;
 import org.springframework.hateoas.PagedModel;
 
 import br.com.somestudy.data.dto.BookDTO;
@@ -23,14 +38,6 @@ import br.com.somestudy.model.Book;
 import br.com.somestudy.repositories.BookRepository;
 import br.com.somestudy.services.BookService;
 import br.com.somestudy.unittests.mapper.mocks.MockBook;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-import static org.junit.Assert.assertThrows;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ExtendWith(MockitoExtension.class)
@@ -46,12 +53,12 @@ public class BookServicesTest {
 
 	@Mock
 	PagedResourcesAssembler<BookDTO> assembler;
-
+	@BeforeEach
 	void setUp() {
 		input = new MockBook();
 		MockitoAnnotations.openMocks(this);
 	}
-
+	@Test
 	void findById() {
 		Book book = input.mockEntity(1);
 		book.setId(1L);
@@ -104,6 +111,7 @@ public class BookServicesTest {
 		when(repository.save(any(Book.class))).thenReturn(entity);	
 		
 		var result = service.create(dto);
+		
 		
 		assertNotNull(result);
         assertNotNull(result.getId());
@@ -219,7 +227,7 @@ public class BookServicesTest {
 		assertTrue(actualMessage.contains(expectedMessage));
 		
 	}
-	
+	@Test
 	void Delete() {
 		Book book = input.mockEntity(1);
 		book.setId(1);
