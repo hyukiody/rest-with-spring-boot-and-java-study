@@ -1,6 +1,7 @@
 package br.com.somestudy.controllers;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RestController
 @RequestMapping("/auth")
 public class AuthController implements AuthControllerDocs{
-
+	
+	@Autowired
 	AuthService service;
 	
 	@PostMapping("/signin")

@@ -48,7 +48,7 @@ class PersonControllerCorsTest extends AbstractIntegrationTest {
 		tokenDto = new TokenDTO();
 	}
 	@Test
-	@Order(1)
+	@Order(0)
 	void signin(){
 		
 		AccountCredentialsDTO credentials = 
@@ -70,7 +70,8 @@ class PersonControllerCorsTest extends AbstractIntegrationTest {
 		assertNotNull(tokenDto.getAccessToken());
 		assertNotNull(tokenDto.getRefreshToken());
 	}
-	
+	@Test
+	@Order(1)
 	void create() throws JsonProcessingException{
 		mockPerson();
 		

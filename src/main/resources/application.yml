@@ -1,7 +1,7 @@
 server:
-  port: 80
+  port: 8080
 cors:
-  originPatterns: http://localhost:3000, http://localhost:8080, https://somestudy.com.br
+  originPatterns: http://localhost:3306, http://localhost:8080, https://somestudy.com.br
 file:
   upload-dir: /Code/UploadDir
 security:
@@ -22,6 +22,18 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
     show-sql: false
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${EMAIL_LOGIN_VARIABLE}
+    password: ${EMAIL_PASSWORD_VARIABLE}
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+      mail.smtp.host: smtp.gmail.com
+      mail.smtp.ssl.trust: smtp.gmail.com
+
 servlet:
   multipart:
     enabled: true

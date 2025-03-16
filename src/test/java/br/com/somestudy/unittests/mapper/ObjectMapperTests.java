@@ -26,7 +26,7 @@ public class ObjectMapperTests {
 		assertEquals(Long.valueOf(0L),output.getId());
 		assertEquals("First Name Test0", output.getFirstName());
 		assertEquals("Last Name Test0", output.getLastName());
-		assertEquals("Address test0", output.getAddress());
+		assertEquals("Address Test0", output.getAddress());
 		assertEquals("Male", output.getGender());
 			
 	}
@@ -57,7 +57,7 @@ public class ObjectMapperTests {
         assertEquals("Address Test12", outputTwelve.getAddress());
         assertEquals("Male", outputTwelve.getGender());
     }
-
+	@Test
 	public void parseDTOListToEntity() {
 		List<Person> outputList = ObjectMapper.parseListObjects(inputObject.mockDTOList(), Person.class);
 		Person outputZero = outputList.get(0);
