@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -30,6 +29,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
 import org.springframework.hateoas.PagedModel;
 
 import br.com.somestudy.data.dto.BookDTO;
@@ -95,7 +95,7 @@ public class BookServicesTest {
 				&& link.getHref().endsWith("/api/book/v1") 
 				&& link.getType().equals("DELETE")));
 		
-		assertEquals("Some author1", result.getAuthor());
+		assertEquals("Some Author1", result.getAuthor());
 		assertEquals(25D, result.getPrice());
 		assertEquals("Some Title1", result.getTitle());
 		assertNotNull(result.getLaunchDate());
@@ -257,15 +257,20 @@ public class BookServicesTest {
 				mockPage.getTotalPages()
 				);
 		
-		PagedModel<EntityModel<BookDTO>> result = 
-				service.findAll(PageRequest.of(0, 14));
-		
-		List<BookDTO> books = result.getContent()
-				.stream()
-				.map(EntityModel:: getContent)
-				.collect(Collectors.toList());
-		
-		
+		PagedModel<EntityModel<BookDTO>> expectedPagedModel = PagedModel.of(entityModels, pageMetadata);
+
+	    when(assembler.toModel(any(Page.class), any(Link.class))).thenReturn(expectedPagedModel);
+
+	    PagedModel<EntityModel<BookDTO>> result =
+	            service.findAll(PageRequest.of(0, 14));
+
+	    List<BookDTO> books = result.getContent()
+	            .stream()
+	            .map(EntityModel::getContent)
+	            .collect(Collectors.toList());
+
+	    assertNotNull(result);
+	    assertEquals(mockDtoList.size(), books.size());
 	}
 	
 	private static void validateIndividualBook(BookDTO book, int i) {

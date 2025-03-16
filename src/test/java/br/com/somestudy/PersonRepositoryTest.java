@@ -1,6 +1,7 @@
 package br.com.somestudy;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -50,9 +51,25 @@ public class PersonRepositoryTest extends AbstractIntegrationTest {
 		assertNotNull(person);
 		assertNotNull(person.getId());
 		assertEquals("Nikola", person.getFirstName());
-		assertEquals("Tesl", person.getLastName());
+		assertEquals("Tesla", person.getLastName());
 		assertEquals("Male", person.getGender());
 		assertTrue(person.getEnabled());
 		
 	}
-}
+	@Test
+    @Order(2)
+    void disablePerson() {
+
+        Long id = person.getId();
+        repository.disablePerson(id);
+
+        var result = repository.findById(id);
+        person = result.get();
+
+        assertNotNull(person);
+        assertNotNull(person.getId());
+        assertEquals("Nikola", person.getFirstName());
+        assertEquals("Tesla", person.getLastName());
+        assertEquals("Male", person.getGender());
+        assertFalse(person.getEnabled());
+    }}

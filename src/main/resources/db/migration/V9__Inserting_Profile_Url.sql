@@ -1,5 +1,5 @@
 UPDATE person
-SET wikipedia_profile_url = CASE 
+SET profile_url = CASE 
     WHEN id = 1 THEN 'https://en.wikipedia.org/wiki/Ayrton_Senna'
     WHEN id = 2 THEN 'https://en.wikipedia.org/wiki/Leonardo_da_Vinci'
     WHEN id = 4 THEN 'https://en.wikipedia.org/wiki/Indira_Gandhi'
@@ -12,6 +12,6 @@ SET wikipedia_profile_url = CASE
     WHEN id = 15 THEN 'https://en.wikipedia.org/wiki/Valentina_Tereshkova'
     WHEN id = 16 THEN 'https://en.wikipedia.org/wiki/Marie_Curie'
     WHEN id = 18 THEN 'https://en.wikipedia.org/wiki/Ada_Lovelace'
-    ELSE wikipedia_profile_url
+    ELSE profile_url
 END
 WHERE id <= 18;
